@@ -90,10 +90,8 @@
 <li><p>解压</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf protobuf-2.6.1.tar.gz</span><br></pre></td></tr></table></figure>
 </li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd protobuf-2.6.1</span><br></pre></td></tr></table></figure>
-</li>
 <li><p>编译</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/protobuf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd protobuf-2.6.1</span><br><span class="line">./configure --prefix=/usr/local/protobuf</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>make 安装 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
@@ -119,38 +117,24 @@
 </li>
 <li><p>编译 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --with-php-config=/www/server/php/71/bin/php-config</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>备注：/www/server/php/71/bin/php-config 是环境的php-config目录，按照具体环境的路径为准</p>
-</blockquote>
 </li>
 <li><p>make 安装 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>编辑php.ini文件，添加一行 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;extension=protobuf.so&apos; &gt;&gt; /www/server/php/71/etc/php.ini</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>备注：/www/server/php/71/etc/php.ini 是环境的php.ini目录，按照具体环境的路径为准</p>
-</blockquote>
 </li>
 <li><p>重启php与nginx</p>
 </li>
 </ol>
 <h4 id="composer"><a href="#composer" class="headerlink" title="composer"></a>composer</h4><ol>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /$&#123;PATH&#125;/php-protobuf-master</span><br></pre></td></tr></table></figure>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s http://getcomposer.org/installer | php</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>备注：如果 open_basedir 报错，需要改 php.ini 中的 open_basedir 的配置</p>
-</blockquote>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php composer.phar install</span><br></pre></td></tr></table></figure>
+<li>安装php-protobuf<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /$&#123;PATH&#125;/php-protobuf-master</span><br><span class="line">curl -s http://getcomposer.org/installer | php</span><br><span class="line">php composer.phar install</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
 <h4 id="修改源代码"><a href="#修改源代码" class="headerlink" title="修改源代码"></a>修改源代码</h4><ol>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /$&#123;PATH&#125;/php-protobuf-master</span><br></pre></td></tr></table></figure>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim src/Allegro/Protobuf/Compiler/PhpGenerator.php</span><br></pre></td></tr></table></figure>
+<li><p>打开 PhpGenerator.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /$&#123;PATH&#125;/php-protobuf-master</span><br><span class="line">vim src/Allegro/Protobuf/Compiler/PhpGenerator.php</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>修改 _createFileComment 函数，注释一行代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//$comment-&gt;append(&apos;Auto generated from &apos; . basename($file-&gt;getName()) . &apos; at &apos; . $date);</span><br></pre></td></tr></table></figure>
@@ -174,7 +158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/07/protobuf%E6%89%A9%E5%B1%95%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" data-id="ck2o758jd0001lwou1ufp9r22" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/07/protobuf%E6%89%A9%E5%B1%95%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" data-id="ck2o7g0ue0001msouf0h50nip" class="article-share-link">Share</a>
       
       
     </footer>
@@ -223,7 +207,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/07/hello-world/" data-id="ck2o758j70000lwou92128vkm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/07/hello-world/" data-id="ck2o7g0u70000msouf46o8xj5" class="article-share-link">Share</a>
       
       
     </footer>
